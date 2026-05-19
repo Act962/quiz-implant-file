@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__claude_ai_Context7__resolve-library-id",
+      "mcp__claude_ai_Context7__query-docs",
+      "WebFetch(domain:docs.expo.dev)",
+      "WebFetch(domain:github.com)",
+      "Bash(npm view *)",
+      "PowerShell(pnpm why *)",
+      "PowerShell(Write-Output \"Tamanho do log:\"; \\(Get-Item metro-debug.log\\).Length; Write-Output \"Modificado em:\"; \\(Get-Item metro-debug.log\\).LastWriteTime; Write-Output \"Agora:\"; Get-Date)"
+    ]
+  }
+}

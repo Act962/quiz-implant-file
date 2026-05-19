@@ -1,53 +1,70 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
+import { RFValue } from 'react-native-responsive-fontsize';
 
-import { Platform } from 'react-native';
+export const colors = {
+  brand: '#0a7ea4',
+  brandTint: 'rgba(10, 126, 164, 0.1)',
+  correct: '#16a34a',
+  correctTint: 'rgba(22, 163, 74, 0.2)',
+  correctBadge: 'rgba(22, 163, 74, 0.15)',
+  incorrect: '#dc2626',
+  incorrectTint: 'rgba(220, 38, 38, 0.2)',
+  incorrectBadge: 'rgba(220, 38, 38, 0.15)',
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+  white: '#ffffff',
+  background: '#ffffff',
+  surfaceMuted: '#fafafa',
+  surface: '#f5f5f5',
+  surfaceStrong: '#e5e5e5',
+  border: '#d4d4d4',
 
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
+  textMuted: '#737373',
+  textSecondary: '#525252',
+  text: '#404040',
+  textStrong: '#171717',
+
+  overlay: 'rgba(0, 0, 0, 0.5)',
+  placeholder: '#9ca3af',
 };
 
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
-  },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
-  },
-  web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-  },
-});
+export const spacing = {
+  xs: 4,
+  sm: 8,
+  md: 12,
+  lg: 16,
+  xl: 20,
+  '2xl': 24,
+  '3xl': 32,
+  '4xl': 40,
+};
+
+export const radius = {
+  sm: 8,
+  md: 12,
+  lg: 16,
+  xl: 20,
+  '2xl': 24,
+  '3xl': 32,
+  full: 9999,
+};
+
+export const typography = {
+  caption: { fontSize: RFValue(11), lineHeight: RFValue(16) },
+  small: { fontSize: RFValue(13), lineHeight: RFValue(20) },
+  body: { fontSize: RFValue(15), lineHeight: RFValue(24) },
+  bodyBold: { fontSize: RFValue(15), lineHeight: RFValue(24), fontWeight: '700' as const },
+  title: { fontSize: RFValue(18), lineHeight: RFValue(26), fontWeight: '700' as const },
+  titleLarge: { fontSize: RFValue(22), lineHeight: RFValue(30), fontWeight: '700' as const },
+  display: { fontSize: RFValue(26), lineHeight: RFValue(34), fontWeight: '700' as const },
+  hero: { fontSize: RFValue(32), lineHeight: RFValue(38), fontWeight: '700' as const },
+  emojiLarge: { fontSize: RFValue(56) },
+};
+
+export const layout = {
+  contentMaxWidth: 640,
+  imageMaxHeight: 320,
+};
+
+export const animation = {
+  bounceDuration: 220,
+  fadeDuration: 260,
+};
