@@ -13,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AdminAccessGate } from "@/components/admin-access-gate";
 import { AnimatedPressable } from "@/components/animated-pressable";
+import { RankingAccessGate } from "@/components/ranking-access-gate";
 import { colors, layout, radius, spacing, typography } from "@/constants/theme";
 
 export default function WelcomeScreen() {
@@ -34,6 +35,7 @@ export default function WelcomeScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <AdminAccessGate />
+      <RankingAccessGate />
       <View style={styles.content}>
         <Animated.View style={[styles.lottieWrapper, animatedContainer]}>
           <LottieView

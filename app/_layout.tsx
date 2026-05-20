@@ -11,6 +11,7 @@ export default function RootLayout() {
         <Stack.Screen name="quiz" options={{ title: 'Quiz' }} />
         <Stack.Screen name="result" options={{ title: 'Resultado' }} />
         <Stack.Screen name="admin" options={{ title: 'Admin' }} />
+        <Stack.Screen name="ranking" options={{ title: 'Ranking' }} />
       </Stack>
       <StatusBar style="auto" />
     </>

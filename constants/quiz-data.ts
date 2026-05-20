@@ -47,6 +47,12 @@ export type QuestionBundle = {
 
 export type LeadUploadStatus = 'pending' | 'sent' | 'error';
 
+export type LeadScore = {
+  correctCount: number;
+  totalQuestions: number;
+  completedAt: number;
+};
+
 export type Lead = {
   id: string;
   name: string;
@@ -56,6 +62,7 @@ export type Lead = {
   status: LeadUploadStatus;
   sentAt?: number;
   errorMessage?: string;
+  score?: LeadScore;
 };
 
 export const QUESTIONS: Question[] = [

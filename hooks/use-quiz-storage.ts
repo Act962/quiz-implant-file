@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import type {
   Lead,
+  LeadScore,
   LeadUploadStatus,
   QuestionBundle,
   QuizAttempt,
@@ -50,6 +51,16 @@ export async function updateLeadStatus(
   const next = existing.map((l) =>
     l.id === id ? { ...l, ...patch, errorMessage: patch.errorMessage } : l,
   );
+  await AsyncStorage.setItem(KEYS.leads, JSON.stringify(next));
+  return next;
+}
+
+export async function updateLeadScore(
+  id: string,
+  score: LeadScore,
+): Promise<Lead[]> {
+  const existing = await getStoredLeads();
+  const next = existing.map((l) => (l.id === id ? { ...l, score } : l));
   await AsyncStorage.setItem(KEYS.leads, JSON.stringify(next));
   return next;
 }

@@ -42,15 +42,16 @@ export default function RegisterScreen() {
     try {
       const createdAt = Date.now();
       const trimmedEmail = email.trim() || undefined;
+      const leadId = `${createdAt}-${Math.random().toString(36).slice(2, 8)}`;
       await appendLead({
-        id: `${createdAt}-${Math.random().toString(36).slice(2, 8)}`,
+        id: leadId,
         name: trimmedName,
         phone,
         email: trimmedEmail,
         createdAt,
         status: 'pending',
       });
-      router.replace('/quiz');
+      router.replace({ pathname: '/quiz', params: { leadId } });
     } finally {
       setSubmitting(false);
     }
