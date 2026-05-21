@@ -1,3 +1,4 @@
+import { useAudioPlayer } from 'expo-audio';
 import * as Haptics from 'expo-haptics';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useMemo, useState } from 'react';
@@ -15,6 +16,17 @@ import { updateLeadScore, useQuizStorage } from '@/hooks/use-quiz-storage';
 
 const QUESTION_LIMIT = 10;
 
+const correctSound = require('@/assets/sounds/correct.mp3');
+const wrongSound = require('@/assets/sounds/wrong.mp3');
+const finishSound = require('@/assets/sounds/finish.mp3');
+
+function playFromStart(player: ReturnType<typeof useAudioPlayer>) {
+  try {
+    player.seekTo(0);
+    player.play();
+  } catch {}
+}
+
 function shuffleAndPick<T>(arr: readonly T[], n: number): T[] {
   const copy = arr.slice();
   for (let i = copy.length - 1; i > 0; i--) {
@@ -27,6 +39,9 @@ function shuffleAndPick<T>(arr: readonly T[], n: number): T[] {
 export default function QuizScreen() {
   const { leadId } = useLocalSearchParams<{ leadId?: string }>();
   const { saveAttempt } = useQuizStorage();
+  const correctPlayer = useAudioPlayer(correctSound);
+  const wrongPlayer = useAudioPlayer(wrongSound);
+  const finishPlayer = useAudioPlayer(finishSound);
   const [questions] = useState(() => shuffleAndPick(quizImplantQuestions, QUESTION_LIMIT));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
@@ -52,6 +67,7 @@ export default function QuizScreen() {
         ? Haptics.NotificationFeedbackType.Success
         : Haptics.NotificationFeedbackType.Error,
     ).catch(() => {});
+    playFromStart(correct ? correctPlayer : wrongPlayer);
   }
 
   async function handleNext() {
@@ -64,6 +80,7 @@ export default function QuizScreen() {
 
     const finalCorrect = answers.filter((a) => a.correct).length;
     const completedAt = Date.now();
+    playFromStart(finishPlayer);
     await saveAttempt({
       completedAt,
       totalQuestions: total,
