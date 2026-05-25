@@ -1,3 +1,4 @@
+import { useAudioPlayer } from 'expo-audio';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import {
@@ -18,6 +19,8 @@ import { colors, layout, radius, spacing, typography } from '@/constants/theme';
 import { appendLead } from '@/hooks/use-quiz-storage';
 import { isValidPhone } from '@/lib/phone-mask';
 
+const clickSound = require('@/assets/sounds/click-sound.wav');
+
 function isEmailLocalPartValid(email: string): boolean {
   if (email.length === 0) return true;
   const localPart = email.split('@')[0] ?? '';
@@ -29,6 +32,7 @@ export default function RegisterScreen() {
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const clickPlayer = useAudioPlayer(clickSound);
 
   const trimmedName = name.trim();
   const nameValid = trimmedName.length > 0;
@@ -38,6 +42,10 @@ export default function RegisterScreen() {
 
   async function handleSubmit() {
     if (!canSubmit) return;
+    try {
+      clickPlayer.seekTo(0);
+      clickPlayer.play();
+    } catch {}
     setSubmitting(true);
     try {
       const createdAt = Date.now();

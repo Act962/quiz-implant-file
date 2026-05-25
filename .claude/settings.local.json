@@ -7,7 +7,14 @@
       "WebFetch(domain:github.com)",
       "Bash(npm view *)",
       "PowerShell(pnpm why *)",
-      "PowerShell(Write-Output \"Tamanho do log:\"; \\(Get-Item metro-debug.log\\).Length; Write-Output \"Modificado em:\"; \\(Get-Item metro-debug.log\\).LastWriteTime; Write-Output \"Agora:\"; Get-Date)"
+      "PowerShell(Write-Output \"Tamanho do log:\"; \\(Get-Item metro-debug.log\\).Length; Write-Output \"Modificado em:\"; \\(Get-Item metro-debug.log\\).LastWriteTime; Write-Output \"Agora:\"; Get-Date)",
+      "WebFetch(domain:pixabay.com)",
+      "WebSearch",
+      "WebFetch(domain:mixkit.co)",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"https://mixkit.co/free-sound-effects/correct/\" -UserAgent \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\" -UseBasicParsing -TimeoutSec 30; [regex]::Matches\\($r.Content, 'https://assets\\\\.mixkit\\\\.co/[^\\\\\"''<>\\\\s]+\\\\.\\(?:mp3|wav\\)'\\) | Select-Object -ExpandProperty Value -Unique | Select-Object -First 20 } catch { \"ERR: \" + $_.Exception.Message })",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"https://mixkit.co/free-sound-effects/wrong/\" -UserAgent \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\" -UseBasicParsing -TimeoutSec 30; [regex]::Matches\\($r.Content, 'https://assets\\\\.mixkit\\\\.co/[^\\\\\"''<>\\\\s]+\\\\.\\(?:mp3|wav\\)'\\) | Select-Object -ExpandProperty Value -Unique | Select-Object -First 20 } catch { \"ERR: \" + $_.Exception.Message })",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"https://mixkit.co/free-sound-effects/game/\" -UserAgent \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\" -UseBasicParsing -TimeoutSec 30; [regex]::Matches\\($r.Content, 'https://assets\\\\.mixkit\\\\.co/[^\\\\\"''<>\\\\s]+\\\\.\\(?:mp3|wav\\)'\\) | Select-Object -ExpandProperty Value -Unique | Select-Object -First 30 } catch { \"ERR: \" + $_.Exception.Message })",
+      "PowerShell($r = Invoke-WebRequest -Uri \"https://mixkit.co/free-sound-effects/correct/\" -UserAgent \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\" -UseBasicParsing -TimeoutSec 30; $r.Content.Substring\\(0,2000\\))"
     ]
   }
 }

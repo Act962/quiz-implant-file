@@ -1,3 +1,4 @@
+import { useAudioPlayer } from "expo-audio";
 import { router } from "expo-router";
 import LottieView from "lottie-react-native";
 import { useEffect, useRef } from "react";
@@ -16,9 +17,12 @@ import { AnimatedPressable } from "@/components/animated-pressable";
 import { RankingAccessGate } from "@/components/ranking-access-gate";
 import { colors, layout, radius, spacing, typography } from "@/constants/theme";
 
+const clickSound = require("@/assets/sounds/click-sound.wav");
+
 export default function WelcomeScreen() {
   const translateY = useSharedValue(0);
   const lottieRef = useRef<LottieView>(null);
+  const clickPlayer = useAudioPlayer(clickSound);
 
   useEffect(() => {
     translateY.value = withRepeat(
@@ -56,7 +60,13 @@ export default function WelcomeScreen() {
         </Text>
 
         <AnimatedPressable
-          onPress={() => router.push("/register")}
+          onPress={() => {
+            try {
+              clickPlayer.seekTo(0);
+              clickPlayer.play();
+            } catch {}
+            router.push("/register");
+          }}
           style={styles.button}
         >
           <Text style={styles.buttonLabel}>Começar</Text>
