@@ -1,5 +1,6 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AnimatedPressable } from '@/components/animated-pressable';
@@ -82,10 +83,12 @@ const styles = StyleSheet.create({
   },
   emoji: {
     ...typography.emojiLarge,
+    textAlign: 'center',
     marginBottom: spacing.lg,
   },
   title: {
     ...typography.display,
+    textAlign: 'center',
     color: colors.textOnBg,
     marginBottom: spacing.sm,
   },
@@ -134,6 +137,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.white,
     fontWeight: '700',
-    fontSize: 18,
+    fontSize: RFValue(18),
   },
 });

@@ -1,6 +1,6 @@
-import { useAudioPlayer } from 'expo-audio';
-import { router } from 'expo-router';
-import { useState } from 'react';
+import { useAudioPlayer } from "expo-audio";
+import { router } from "expo-router";
+import { useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -9,28 +9,29 @@ import {
   Text,
   TextInput,
   View,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+} from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { AnimatedPressable } from '@/components/animated-pressable';
-import { MaskedPhoneInput } from '@/components/masked-phone-input';
-import { ScreenBackground } from '@/components/screen-background';
-import { colors, radius, spacing, typography } from '@/constants/theme';
-import { appendLead } from '@/hooks/use-quiz-storage';
-import { isValidPhone } from '@/lib/phone-mask';
+import { AnimatedPressable } from "@/components/animated-pressable";
+import { MaskedPhoneInput } from "@/components/masked-phone-input";
+import { ScreenBackground } from "@/components/screen-background";
+import { colors, radius, spacing, typography } from "@/constants/theme";
+import { appendLead } from "@/hooks/use-quiz-storage";
+import { isValidPhone } from "@/lib/phone-mask";
 
-const clickSound = require('@/assets/sounds/click-sound.wav');
+const clickSound = require("@/assets/sounds/click-sound.wav");
 
 function isEmailLocalPartValid(email: string): boolean {
   if (email.length === 0) return true;
-  const localPart = email.split('@')[0] ?? '';
+  const localPart = email.split("@")[0] ?? "";
   return localPart.trim().length > 0;
 }
 
 export default function RegisterScreen() {
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const clickPlayer = useAudioPlayer(clickSound);
 
@@ -57,9 +58,9 @@ export default function RegisterScreen() {
         phone,
         email: trimmedEmail,
         createdAt,
-        status: 'pending',
+        status: "pending",
       });
-      router.replace({ pathname: '/quiz', params: { leadId } });
+      router.replace({ pathname: "/quiz", params: { leadId } });
     } finally {
       setSubmitting(false);
     }
@@ -69,61 +70,68 @@ export default function RegisterScreen() {
     <ScreenBackground>
       <SafeAreaView style={styles.safeArea}>
         <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
           style={styles.flex}
         >
-        <ScrollView
-          contentContainerStyle={styles.scrollContent}
-          keyboardShouldPersistTaps="handled"
-        >
-          <Text style={styles.title}>Cadastro</Text>
-          <Text style={styles.subtitle}>Preencha seus dados para começar o quiz.</Text>
-
-          <Field label="Nome *">
-            <TextInput
-              value={name}
-              onChangeText={setName}
-              placeholder="Seu nome completo"
-              autoCapitalize="words"
-              style={styles.input}
-              placeholderTextColor={colors.placeholder}
-            />
-          </Field>
-
-          <Field label="Telefone *">
-            <MaskedPhoneInput
-              value={phone}
-              onChangeText={setPhone}
-              style={styles.input}
-              placeholderTextColor={colors.placeholder}
-            />
-            {!phoneValid && phone.length > 5 && (
-              <Text style={styles.errorText}>Informe os 11 dígitos do telefone.</Text>
-            )}
-          </Field>
-
-          <Field label="E-mail (opcional)">
-            <TextInput
-              value={email}
-              onChangeText={setEmail}
-              placeholder="seuemail"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-              style={styles.input}
-              placeholderTextColor={colors.placeholder}
-            />
-          </Field>
-
-          <AnimatedPressable
-            onPress={handleSubmit}
-            disabled={!canSubmit}
-            style={[styles.submitButton, !canSubmit && styles.submitButtonDisabled]}
+          <ScrollView
+            contentContainerStyle={styles.scrollContent}
+            keyboardShouldPersistTaps="handled"
           >
-            <Text style={styles.submitLabel}>
-              {submitting ? 'Salvando...' : 'Continuar'}
+            <Text style={styles.title}>Cadastro</Text>
+            <Text style={styles.subtitle}>
+              Preencha seus dados para começar o quiz.
             </Text>
-          </AnimatedPressable>
+
+            <Field label="Nome *">
+              <TextInput
+                value={name}
+                onChangeText={setName}
+                placeholder="Seu nome completo"
+                autoCapitalize="words"
+                style={styles.input}
+                placeholderTextColor={colors.placeholder}
+              />
+            </Field>
+
+            <Field label="Telefone *">
+              <MaskedPhoneInput
+                value={phone}
+                onChangeText={setPhone}
+                style={styles.input}
+                placeholderTextColor={colors.placeholder}
+              />
+              {!phoneValid && phone.length > 5 && (
+                <Text style={styles.errorText}>
+                  Informe os 11 dígitos do telefone.
+                </Text>
+              )}
+            </Field>
+
+            <Field label="E-mail (opcional)">
+              <TextInput
+                value={email}
+                onChangeText={setEmail}
+                placeholder="seuemail"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+                style={styles.input}
+                placeholderTextColor={colors.placeholder}
+              />
+            </Field>
+
+            <AnimatedPressable
+              onPress={handleSubmit}
+              disabled={!canSubmit}
+              style={[
+                styles.submitButton,
+                !canSubmit && styles.submitButtonDisabled,
+              ]}
+            >
+              <Text style={styles.submitLabel}>
+                {submitting ? "Salvando..." : "Continuar"}
+              </Text>
+            </AnimatedPressable>
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -131,7 +139,13 @@ export default function RegisterScreen() {
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
     <View style={styles.field}>
       <Text style={styles.fieldLabel}>{label}</Text>
@@ -143,15 +157,15 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
   flex: {
     flex: 1,
   },
   scrollContent: {
-    width: '100%',
-    paddingHorizontal: spacing['2xl'],
-    paddingVertical: spacing['3xl'],
+    width: "100%",
+    paddingHorizontal: spacing["2xl"],
+    paddingVertical: spacing["3xl"],
   },
   title: {
     ...typography.display,
@@ -161,12 +175,13 @@ const styles = StyleSheet.create({
   subtitle: {
     ...typography.body,
     color: colors.textOnBgMuted,
-    marginBottom: spacing['3xl'],
+    marginBottom: spacing["3xl"],
+    fontWeight: "600",
   },
   input: {
     borderWidth: 1,
     borderColor: colors.border,
-    borderRadius: radius['2xl'],
+    borderRadius: radius["2xl"],
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.md,
     ...typography.body,
@@ -177,19 +192,20 @@ const styles = StyleSheet.create({
     ...typography.caption,
     color: colors.incorrect,
     marginTop: spacing.xs,
+    fontWeight: "600",
   },
   field: {
     marginBottom: spacing.xl,
   },
   fieldLabel: {
     ...typography.small,
-    fontWeight: '600',
+    fontWeight: "700",
     color: colors.textOnBg,
     marginBottom: spacing.sm,
   },
   submitButton: {
     marginTop: spacing.lg,
-    borderRadius: radius['2xl'],
+    borderRadius: radius["2xl"],
     paddingVertical: spacing.lg,
     backgroundColor: colors.brand,
   },
@@ -197,9 +213,9 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   submitLabel: {
-    textAlign: 'center',
+    textAlign: "center",
     color: colors.white,
-    fontWeight: '700',
-    fontSize: 18,
+    fontWeight: "700",
+    fontSize: RFValue(18),
   },
 });

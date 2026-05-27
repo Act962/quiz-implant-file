@@ -2,7 +2,7 @@ import { useAudioPlayer } from "expo-audio";
 import { router } from "expo-router";
 import LottieView from "lottie-react-native";
 import { useEffect, useRef } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -24,6 +24,7 @@ export default function WelcomeScreen() {
   const translateY = useSharedValue(0);
   const lottieRef = useRef<LottieView>(null);
   const clickPlayer = useAudioPlayer(clickSound);
+  const { width: screenWidth } = useWindowDimensions();
 
   useEffect(() => {
     translateY.value = withRepeat(
@@ -68,7 +69,7 @@ export default function WelcomeScreen() {
             } catch {}
             router.push("/register");
           }}
-          style={styles.button}
+          style={[styles.button, { width: screenWidth * 0.5 }]}
         >
           <Text style={styles.buttonLabel}>Começar</Text>
         </AnimatedPressable>
@@ -115,9 +116,9 @@ const styles = StyleSheet.create({
     color: colors.textOnBgMuted,
     textAlign: "center",
     marginBottom: spacing["4xl"],
+    fontWeight: "600",
   },
   button: {
-    width: "100%",
     backgroundColor: colors.brand,
     borderRadius: radius["2xl"],
     paddingVertical: spacing.lg,
@@ -126,6 +127,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: colors.white,
     fontWeight: "700",
-    fontSize: 18,
+    fontSize: RFValue(18),
   },
 });

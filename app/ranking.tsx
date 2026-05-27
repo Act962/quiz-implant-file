@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   headerRow: {
-    paddingTop: spacing['4xl'],
+    paddingTop: spacing['4xl'] * 2,
     paddingHorizontal: spacing.xl,
     paddingBottom: spacing.md,
     alignSelf: 'center',
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   },
   listContent: {
     paddingHorizontal: spacing.xl,
-    paddingBottom: spacing['3xl'],
+    paddingBottom: spacing['4xl'] * 2,
     alignSelf: 'center',
     width: '100%',
     maxWidth: layout.contentMaxWidth,
