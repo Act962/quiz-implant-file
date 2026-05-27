@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AnimatedPressable } from '@/components/animated-pressable';
-import { HeaderLogo } from '@/components/header-logo';
 import { ScreenBackground } from '@/components/screen-background';
 import { colors, layout, radius, spacing, typography } from '@/constants/theme';
 
@@ -39,7 +38,6 @@ export default function ResultScreen() {
   return (
     <ScreenBackground>
       <SafeAreaView style={styles.safeArea}>
-        <HeaderLogo />
         <View style={styles.content}>
         <Text style={styles.emoji}>{feedback.emoji}</Text>
 

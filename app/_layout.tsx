@@ -1,6 +1,15 @@
+import { Asset } from 'expo-asset';
+import { Image } from 'expo-image';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
+
+const backgroundAsset = Asset.fromModule(
+  require('@/assets/images/screen-background.svg')
+);
+backgroundAsset
+  .downloadAsync()
+  .then(() => Image.prefetch(backgroundAsset.localUri ?? backgroundAsset.uri, 'memory-disk'));
 
 export default function RootLayout() {
   return (
@@ -13,7 +22,7 @@ export default function RootLayout() {
         <Stack.Screen name="admin" options={{ title: 'Admin' }} />
         <Stack.Screen name="ranking" options={{ title: 'Ranking' }} />
       </Stack>
-      <StatusBar style="auto" />
+      <StatusBar hidden />
     </>
   );
 }

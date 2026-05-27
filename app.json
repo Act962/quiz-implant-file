@@ -20,7 +20,11 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.elfabrica.quizimplant"
+      "package": "com.elfabrica.quizimplant",
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ]
     },
     "web": {
       "output": "static",
@@ -49,7 +53,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "5c24474a-6ed1-4a6f-91d5-749fc1fd7698"
+        "projectId": "f685d589-804b-4a16-b4ef-3b8beab0a36c"
       }
     }
   }

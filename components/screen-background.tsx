@@ -15,7 +15,8 @@ export function ScreenBackground({
       <Image
         source={backgroundSource}
         style={StyleSheet.absoluteFill}
-        contentFit="cover"
+        contentFit="fill"
+        cachePolicy="memory-disk"
         pointerEvents="none"
       />
       {children}
