@@ -10,12 +10,13 @@ import Animated, {
   withRepeat,
   withTiming,
 } from "react-native-reanimated";
+import { RFValue } from "react-native-responsive-fontsize";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { AdminAccessGate } from "@/components/admin-access-gate";
 import { AnimatedPressable } from "@/components/animated-pressable";
-import { RankingAccessGate } from "@/components/ranking-access-gate";
-import { colors, layout, radius, spacing, typography } from "@/constants/theme";
+import { ScreenBackground } from "@/components/screen-background";
+import { SecretMenu } from "@/components/secret-menu";
+import { colors, radius, spacing, typography } from "@/constants/theme";
 
 const clickSound = require("@/assets/sounds/click-sound.wav");
 
@@ -37,10 +38,10 @@ export default function WelcomeScreen() {
   }));
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <AdminAccessGate />
-      <RankingAccessGate />
-      <View style={styles.content}>
+    <ScreenBackground>
+      <SafeAreaView style={styles.safeArea}>
+        <SecretMenu />
+        <View style={styles.content}>
         <Animated.View style={[styles.lottieWrapper, animatedContainer]}>
           <LottieView
             ref={lottieRef}
@@ -71,23 +72,23 @@ export default function WelcomeScreen() {
         >
           <Text style={styles.buttonLabel}>Começar</Text>
         </AnimatedPressable>
-      </View>
-    </SafeAreaView>
+        </View>
+      </SafeAreaView>
+    </ScreenBackground>
   );
 }
 
-const LOTTIE_SIZE = 250;
+const LOTTIE_SIZE = RFValue(250);
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: 'transparent',
   },
   content: {
     flex: 1,
     alignSelf: "center",
     width: "100%",
-    maxWidth: layout.contentMaxWidth,
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: spacing["3xl"],
@@ -105,13 +106,13 @@ const styles = StyleSheet.create({
   },
   title: {
     ...typography.hero,
-    color: colors.textStrong,
+    color: colors.textOnBg,
     textAlign: "center",
     marginBottom: spacing.md,
   },
   subtitle: {
     ...typography.body,
-    color: colors.textSecondary,
+    color: colors.textOnBgMuted,
     textAlign: "center",
     marginBottom: spacing["4xl"],
   },

@@ -15,7 +15,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { AnimatedPressable } from '@/components/animated-pressable';
 import { HeaderLogo } from '@/components/header-logo';
 import { MaskedPhoneInput } from '@/components/masked-phone-input';
-import { colors, layout, radius, spacing, typography } from '@/constants/theme';
+import { ScreenBackground } from '@/components/screen-background';
+import { colors, radius, spacing, typography } from '@/constants/theme';
 import { appendLead } from '@/hooks/use-quiz-storage';
 import { isValidPhone } from '@/lib/phone-mask';
 
@@ -66,12 +67,13 @@ export default function RegisterScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <HeaderLogo />
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={styles.flex}
-      >
+    <ScreenBackground>
+      <SafeAreaView style={styles.safeArea}>
+        <HeaderLogo />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          style={styles.flex}
+        >
         <ScrollView
           contentContainerStyle={styles.scrollContent}
           keyboardShouldPersistTaps="handled"
@@ -118,18 +120,16 @@ export default function RegisterScreen() {
           <AnimatedPressable
             onPress={handleSubmit}
             disabled={!canSubmit}
-            style={[
-              styles.submitButton,
-              canSubmit ? styles.submitButtonActive : styles.submitButtonDisabled,
-            ]}
+            style={[styles.submitButton, !canSubmit && styles.submitButtonDisabled]}
           >
             <Text style={styles.submitLabel}>
               {submitting ? 'Salvando...' : 'Continuar'}
             </Text>
           </AnimatedPressable>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </ScreenBackground>
   );
 }
 
@@ -145,26 +145,24 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: 'transparent',
   },
   flex: {
     flex: 1,
   },
   scrollContent: {
-    alignSelf: 'center',
     width: '100%',
-    maxWidth: layout.contentMaxWidth,
     paddingHorizontal: spacing['2xl'],
     paddingVertical: spacing['3xl'],
   },
   title: {
     ...typography.display,
-    color: colors.textStrong,
+    color: colors.textOnBg,
     marginBottom: spacing.sm,
   },
   subtitle: {
     ...typography.body,
-    color: colors.textSecondary,
+    color: colors.textOnBgMuted,
     marginBottom: spacing['3xl'],
   },
   input: {
@@ -188,19 +186,17 @@ const styles = StyleSheet.create({
   fieldLabel: {
     ...typography.small,
     fontWeight: '600',
-    color: colors.text,
+    color: colors.textOnBg,
     marginBottom: spacing.sm,
   },
   submitButton: {
     marginTop: spacing.lg,
     borderRadius: radius['2xl'],
     paddingVertical: spacing.lg,
-  },
-  submitButtonActive: {
     backgroundColor: colors.brand,
   },
   submitButtonDisabled: {
-    backgroundColor: colors.border,
+    opacity: 0.5,
   },
   submitLabel: {
     textAlign: 'center',

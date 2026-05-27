@@ -9,9 +9,10 @@ import { AnimatedPressable } from '@/components/animated-pressable';
 import { HeaderLogo } from '@/components/header-logo';
 import { ProgressBar } from '@/components/quiz/progress-bar';
 import { QuestionCard } from '@/components/quiz/question-card';
+import { ScreenBackground } from '@/components/screen-background';
 import { quizImplantQuestions } from '@/constants/mock';
 import { type AnswerRecord } from '@/constants/quiz-data';
-import { colors, layout, radius, spacing, typography } from '@/constants/theme';
+import { colors, radius, spacing, typography } from '@/constants/theme';
 import { updateLeadScore, useQuizStorage } from '@/hooks/use-quiz-storage';
 
 const QUESTION_LIMIT = 10;
@@ -27,13 +28,17 @@ function playFromStart(player: ReturnType<typeof useAudioPlayer>) {
   } catch {}
 }
 
-function shuffleAndPick<T>(arr: readonly T[], n: number): T[] {
+function shuffle<T>(arr: readonly T[]): T[] {
   const copy = arr.slice();
   for (let i = copy.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [copy[i], copy[j]] = [copy[j], copy[i]];
   }
-  return copy.slice(0, n);
+  return copy;
+}
+
+function shuffleAndPick<T>(arr: readonly T[], n: number): T[] {
+  return shuffle(arr).slice(0, n);
 }
 
 export default function QuizScreen() {
@@ -42,7 +47,12 @@ export default function QuizScreen() {
   const correctPlayer = useAudioPlayer(correctSound);
   const wrongPlayer = useAudioPlayer(wrongSound);
   const finishPlayer = useAudioPlayer(finishSound);
-  const [questions] = useState(() => shuffleAndPick(quizImplantQuestions, QUESTION_LIMIT));
+  const [questions] = useState(() =>
+    shuffleAndPick(quizImplantQuestions, QUESTION_LIMIT).map((q) => ({
+      ...q,
+      options: shuffle(q.options),
+    })),
+  );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [revealed, setRevealed] = useState(false);
@@ -101,9 +111,10 @@ export default function QuizScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <HeaderLogo />
-      <ScrollView contentContainerStyle={styles.scroll}>
+    <ScreenBackground>
+      <SafeAreaView style={styles.safeArea}>
+        <HeaderLogo />
+        <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.content}>
           <ProgressBar current={currentIndex + 1} total={total} />
 
@@ -130,34 +141,33 @@ export default function QuizScreen() {
           >
             <Text style={styles.nextLabel}>{isLast ? 'Ver resultado' : 'Próxima'}</Text>
           </AnimatedPressable>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </ScreenBackground>
   );
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: colors.surfaceMuted,
+    backgroundColor: 'transparent',
   },
   scroll: {
-    paddingHorizontal: spacing.xl,
+    paddingHorizontal: spacing['2xl'],
     paddingVertical: spacing['2xl'],
-    alignItems: 'center',
   },
   content: {
     width: '100%',
-    maxWidth: layout.contentMaxWidth,
   },
   scoreLabel: {
     ...typography.small,
-    color: colors.textMuted,
+    color: colors.textOnBgMuted,
     marginBottom: spacing.md,
   },
   scoreValue: {
-    fontWeight: '600',
-    color: colors.brand,
+    fontWeight: '700',
+    color: colors.textOnBg,
   },
   nextButton: {
     marginTop: spacing['2xl'],

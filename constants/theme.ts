@@ -22,6 +22,10 @@ export const colors = {
   text: '#404040',
   textStrong: '#171717',
 
+  textOnBg: '#ffffff',
+  textOnBgMuted: 'rgba(255, 255, 255, 0.78)',
+  textOnBgFaint: 'rgba(255, 255, 255, 0.55)',
+
   overlay: 'rgba(0, 0, 0, 0.5)',
   placeholder: '#9ca3af',
 };

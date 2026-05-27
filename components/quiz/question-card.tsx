@@ -63,11 +63,11 @@ export function QuestionCard({
       )}
       <Text style={styles.prompt}>{question.prompt}</Text>
 
-      {question.options.map((option) => (
+      {question.options.map((option, index) => (
         <OptionButton
           key={option.id}
           label={option.text}
-          letter={option.id}
+          letter={String.fromCharCode(65 + index)}
           selected={selectedOptionId === option.id}
           revealed={revealed}
           isCorrect={option.id === question.correctOptionId}

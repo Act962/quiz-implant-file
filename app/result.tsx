@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AnimatedPressable } from '@/components/animated-pressable';
 import { HeaderLogo } from '@/components/header-logo';
+import { ScreenBackground } from '@/components/screen-background';
 import { colors, layout, radius, spacing, typography } from '@/constants/theme';
 
 function getFeedback(pct: number): { title: string; emoji: string; message: string } {
@@ -36,9 +37,10 @@ export default function ResultScreen() {
   const feedback = getFeedback(pct);
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <HeaderLogo />
-      <View style={styles.content}>
+    <ScreenBackground>
+      <SafeAreaView style={styles.safeArea}>
+        <HeaderLogo />
+        <View style={styles.content}>
         <Text style={styles.emoji}>{feedback.emoji}</Text>
 
         <Text style={styles.title}>{feedback.title}</Text>
@@ -60,15 +62,16 @@ export default function ResultScreen() {
         >
           <Text style={styles.primaryLabel}>Voltar ao início</Text>
         </AnimatedPressable>
-      </View>
-    </SafeAreaView>
+        </View>
+      </SafeAreaView>
+    </ScreenBackground>
   );
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: 'transparent',
   },
   content: {
     flex: 1,
@@ -85,12 +88,12 @@ const styles = StyleSheet.create({
   },
   title: {
     ...typography.display,
-    color: colors.textStrong,
+    color: colors.textOnBg,
     marginBottom: spacing.sm,
   },
   message: {
     ...typography.body,
-    color: colors.textSecondary,
+    color: colors.textOnBgMuted,
     textAlign: 'center',
     marginBottom: spacing['3xl'],
   },

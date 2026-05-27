@@ -36,16 +36,16 @@ const styles = StyleSheet.create({
   },
   label: {
     ...typography.small,
-    color: colors.textSecondary,
+    color: colors.textOnBgMuted,
   },
   percent: {
     ...typography.small,
     fontWeight: '600',
-    color: colors.brand,
+    color: colors.textOnBg,
   },
   track: {
     height: 8,
-    backgroundColor: colors.surfaceStrong,
+    backgroundColor: 'rgba(255, 255, 255, 0.25)',
     borderRadius: radius.full,
     overflow: 'hidden',
   },
