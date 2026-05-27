@@ -13,7 +13,6 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AnimatedPressable } from '@/components/animated-pressable';
-import { HeaderLogo } from '@/components/header-logo';
 import { MaskedPhoneInput } from '@/components/masked-phone-input';
 import { ScreenBackground } from '@/components/screen-background';
 import { colors, radius, spacing, typography } from '@/constants/theme';
@@ -69,7 +68,6 @@ export default function RegisterScreen() {
   return (
     <ScreenBackground>
       <SafeAreaView style={styles.safeArea}>
-        <HeaderLogo />
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           style={styles.flex}

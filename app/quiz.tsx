@@ -6,7 +6,6 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AnimatedPressable } from '@/components/animated-pressable';
-import { HeaderLogo } from '@/components/header-logo';
 import { ProgressBar } from '@/components/quiz/progress-bar';
 import { QuestionCard } from '@/components/quiz/question-card';
 import { ScreenBackground } from '@/components/screen-background';
@@ -113,7 +112,6 @@ export default function QuizScreen() {
   return (
     <ScreenBackground>
       <SafeAreaView style={styles.safeArea}>
-        <HeaderLogo />
         <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.content}>
           <ProgressBar current={currentIndex + 1} total={total} />
